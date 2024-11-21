@@ -15,6 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Get PR ID
+        id: pr-id
+        run: echo "PR_ID=$(jq .pull_request.number $GITHUB_EVENT_PATH)" >> $GITHUB_ENV
+
       - name: Get run ID of "Plan" workflow
         id: get-run-id
         run: |
@@ -33,3 +37,4 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           github_token: ${{ secrets.GH_TOKEN }}
           run_id: ${{ steps.get-run-id.outputs.RUN_ID }}
+          pr_id: ${{ env.PR_ID }}

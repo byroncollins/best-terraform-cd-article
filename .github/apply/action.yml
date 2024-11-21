@@ -14,6 +14,9 @@ inputs:
   run_id:
     description: 'Run ID of the plan workflow'
     required: true
+  pr_id:
+    description: 'Pull request ID'
+    required: true
 
 runs:
   using: "composite"
@@ -34,7 +37,7 @@ runs:
     - name: Download Plan
       uses: actions/download-artifact@v4
       with:
-        name: tfplan
+        name: ${{ inputs.pr_id }}-tf-plan
         run_id: ${{ inputs.run_id }}
         path: ${{ inputs.terraform_directory }}
         github_token: ${{ inputs.github_token }}
