@@ -36,5 +36,5 @@ jobs:
           terraform_directory: "terraform"
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           github_token: ${{ secrets.GH_TOKEN }}
-          run_id: ${{ steps.get-run-id.outputs.RUN_ID }}
-          pr_id: ${{ env.PR_ID }}
+          run-id: ${{ steps.get-run-id.outputs.run-id }}
+          pr-id: ${{ env.PR_ID }}
