@@ -38,9 +38,11 @@ runs:
       uses: actions/download-artifact@v4
       with:
         name: ${{ inputs.pr_id }}-tf-plan
-        run-id: ${{ inputs.run_id }}
         path: ${{ inputs.terraform_directory }}
+        repository: ${{ github.repository }}
         github-token: ${{ inputs.github_token }}
+        run-id: ${{ inputs.run_id }}
+
 
     - name: Terraform Apply
       id: apply
