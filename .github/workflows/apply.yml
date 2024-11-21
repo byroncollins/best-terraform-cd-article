@@ -15,14 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get PR ID
-        id: pr-id
-        shell: bash
-        env:
-          GITHUB_REF: ${{ github.event.pull_request.number }}
+      - name: Get run ID of "Plan" workflow
+        id: get-run-id
         run: |
-          PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
+          OTHER_REPO="${{ github.repository }}"
+          WF_NAME="Terraform Plan"
+          RUN_ID=`gh run --repo ${OTHER_REPO} list --workflow ${WF_NAME} --json databaseId --jq .[0].databaseId`
+          echo "Detected latest run id of ${RUN_ID} for workflow ${WF_NAME}"
+          echo "run-id=${RUN_ID}" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Terraform Apply
         uses: ./.github/apply
@@ -30,4 +32,4 @@ jobs:
           terraform_directory: "terraform"
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           github_token: ${{ secrets.GH_TOKEN }}
-          pr_id: ${{ steps.pr-id.outputs.PR_NUMBER }}
+          run_id: ${{ steps.get-run-id.outputs.RUN_ID }}
