@@ -40,7 +40,7 @@ runs:
         name: ${{ inputs.pr_id }}-tf-plan
         run-id: ${{ inputs.run_id }}
         path: ${{ inputs.terraform_directory }}
-        github_token: ${{ inputs.github_token }}
+        github-token: ${{ inputs.github_token }}
 
     - name: Terraform Apply
       id: apply
