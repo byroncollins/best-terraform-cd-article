@@ -11,10 +11,10 @@ inputs:
   github_token: 
     description: 'github secret'
     required: true
-  run_id:
+  run-id:
     description: 'Run ID of the plan workflow'
     required: true
-  pr_id:
+  pr-id:
     description: 'Pull request ID'
     required: true
 
@@ -37,11 +37,11 @@ runs:
     - name: Download Plan
       uses: actions/download-artifact@v4
       with:
-        name: ${{ inputs.pr_id }}-tf-plan
+        name: ${{ inputs.pr-id }}-tf-plan
         path: ${{ inputs.terraform_directory }}
         repository: ${{ github.repository }}
         github-token: ${{ inputs.github_token }}
-        run-id: ${{ inputs.run_id }}
+        run-id: ${{ inputs.run-id }}
 
 
     - name: Terraform Apply
