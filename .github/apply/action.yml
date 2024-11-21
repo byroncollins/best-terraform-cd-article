@@ -58,7 +58,7 @@ runs:
       uses: peter-evans/create-or-update-comment@v2
       with:
         token: ${{ inputs.github_token }}
-        issue-number: ${{ inputs.pr_id }}
+        issue-number: ${{ inputs.pr-id }}
         body: |
           Terraform Apply:
 
